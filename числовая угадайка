@@ -1,0 +1,52 @@
+import random
+
+print('Добро пожаловать в числовую угадайку')
+
+x = int(input('Введите верхний диапазон: '))
+
+def is_valid(your_num):
+    return your_num.isdigit() and int(your_num) in range(1, x+1)
+    
+
+def game():
+    print('Введите число угадайку')
+    num = random.randint(1, x)
+    attempts = 0
+    while True:
+        your_num = input()
+        if is_valid(your_num) == False:
+            print('А может быть все-таки введем целое число от 1 до 100?')
+            continue
+
+        your_num = int(your_num)
+
+        if your_num > num:
+            print('Слишком много, попробуйте еще раз')
+            attempts += 1
+        elif your_num < num:
+            print('Слишком мало, попробуйте еще раз')
+            attempts += 1
+        else:
+            print('Вы угадали, поздравляем!')
+            attempts += 1
+            break
+
+    print('Спасибо, что играли в числовую угадайку. Еще увидимся...')
+    print(f'Количество попыток = {attempts}')
+
+game()
+
+def new_game():
+    while True:
+        print('Хотите сыграть еще раз?')
+        say = input()
+        if say.lower() == 'да':
+            game()
+        elif say.lower() == 'нет':
+            print('ЯСНО')
+            break
+        else:
+            print('Ответьте нормально') 
+
+
+new_game()
