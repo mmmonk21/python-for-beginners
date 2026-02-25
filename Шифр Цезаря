@@ -1,0 +1,52 @@
+import random
+
+eng_lower_alphabet = 'abcdefghijklmnopqrstuvwxyz'
+eng_upper_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+rus_lower_alphabet = "абвгдежзийклмнопрстуфхцчшщъыьэюя"
+rus_upper_alphabet = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
+
+direction = input('Шифруем или дешифруем (шифруем/дешифруем): ')
+while direction != 'шифруем' and direction != 'дешифруем':
+    print('Введи один из указанных вариантов ответа: ')
+    direction = input()
+
+language = input('На каком языке будем делать (ru/en): ')
+while language not in ['ru', 'en']:
+    print('Введи один из указанных вариантов ответа: ')
+    language = input()
+
+step = input('Укажи шаг сдвига: ')
+while step.isdigit() != True:
+    print('Укажи число: ')
+    step = input()
+
+text = input('Пишите текст: ')
+
+def caesar(direction, language, step, text):
+    for i in range(len(text)):
+        if language == 'ru':
+            alphas = 32
+            low_alphabet = rus_lower_alphabet
+            upp_alphabet = rus_upper_alphabet
+        elif language == 'en':
+            alphas = 26
+            low_alphabet = eng_lower_alphabet
+            upp_alphabet = eng_upper_alphabet
+        
+        if text[i].isalpha():
+            if text[i] == text[i].lower():
+                place = low_alphabet.index(text[i])
+            else:
+                place = upp_alphabet.index(text[i])
+            if direction == 'шифруем':
+                index = (place + int(step)) % alphas
+            elif direction == 'дешифруем':
+                index = (place - int(step)) % alphas
+            if text[i] == text[i].lower():
+                print(low_alphabet[index], end='')
+            elif text[i] == text[i].upper():
+                print(upp_alphabet[index], end='')
+        else:
+            print(text[i], end = '')
+
+caesar(direction, language, step, text)
